@@ -1,19 +1,22 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-import { scalarExpressApiReference } from '@scalar/express-api-reference';
-import swaggerDocument from './swagger.json' assert { type: 'json' };
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import fs from 'fs';
+import { apiReference } from '@scalar/express-api-reference';
+
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf-8'));
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 // Conexão com o MongoDB
 mongoose.connect('mongodb://localhost:27017/products', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ Conectado ao MongoDB'))
-.catch(err => console.error('Erro ao conectar:', err));
+  .then(() => console.log('✅ Conectado ao MongoDB'))
+  .catch(err => console.error('Erro ao conectar:', err));
 
 // Modelo (exemplo: produtos)
 const Produto = mongoose.model('produtos_informatica', {
@@ -43,13 +46,13 @@ app.delete('/produtos_informatica/:id', async (req, res) => {
   res.json({ message: 'Produto removido com sucesso!' });
 });
 
-//Scallar API Reference Middleware
+// Scalar API Reference Middleware
 app.use(
   '/api-docs',
-  scalarExpressApiReference({
-    openapi: swaggerDocument,
+  apiReference({
+    spec: { content: swaggerDocument },
     darkMode: true,
-    theme: 'BluePlanet',
+    theme: 'solarized',
     layout: 'modern',
     title: 'Documentação da API de produtos de informática',
   })
