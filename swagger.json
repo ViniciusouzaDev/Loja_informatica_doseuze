@@ -1,0 +1,18 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Mongo CRUD",
+    "version": "1.0.0",
+    "description": "API simples com CRUD utilizando MongoDB"
+  },
+  "paths": {
+    "/produtos": {
+      "get": { "summary": "Listar todos os produtos" },
+      "post": { "summary": "Criar um novo produto" }
+    },
+    "/produtos/{id}": {
+      "put": { "summary": "Atualizar produto" },
+      "delete": { "summary": "Deletar produto" }
+    }
+  }
+}
