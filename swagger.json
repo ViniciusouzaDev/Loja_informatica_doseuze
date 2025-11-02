@@ -6,11 +6,11 @@
     "description": "API simples com CRUD utilizando MongoDB"
   },
   "paths": {
-    "/produtos": {
+    "/produtos_informatica": {
       "get": { "summary": "Listar todos os produtos" },
       "post": { "summary": "Criar um novo produto" }
     },
-    "/produtos/{id}": {
+    "/produtos_informatica/{id}": {
       "put": { "summary": "Atualizar produto" },
       "delete": { "summary": "Deletar produto" }
     }
